@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 find_package(OpenCV)
 find_package(PCL REQUIRED)
+find_library(MV_CAMERA_CONTROL_LIB MvCameraControl PATHS ${CATKIN_DEVEL_PREFIX}/lib ./lib)
 
 catkin_package(
  CATKIN_DEPENDS roscpp rospy std_msgs
@@ -29,7 +30,7 @@ include_directories(
 
 link_directories(
   ${catkin_LIB_DIRS}
-  lib
+  ./lib
 )
 
 add_executable(grabImg src/grab.cpp)
@@ -42,14 +43,16 @@ target_link_libraries(
   grabImg
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
-  -lMvCameraControl
+  # -lMvCameraControl
+  ${MV_CAMERA_CONTROL_LIB}
   -lpthread
 )
 target_link_libraries(
   grabImgWithTrigger
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
-  -lMvCameraControl
+  # -lMvCameraControl
+  ${MV_CAMERA_CONTROL_LIB}
   -lpthread
 )
 
@@ -57,7 +60,8 @@ target_link_libraries(
   Trigger_Image
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
-  -lMvCameraControl
+  # -lMvCameraControl
+  ${MV_CAMERA_CONTROL_LIB}
   -lpthread
 )
 

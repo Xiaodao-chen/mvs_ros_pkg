@@ -4,7 +4,8 @@
 # Camera Parameters. Adjust them!
 #--------------------------------------------------------------------------------------------
 
-SerialNumber: "00F00964437"
+SerialNumber: "00DA5179502"
+
 
 CameraName: "left"
 
@@ -14,7 +15,7 @@ TopicName: "left_camera/image"
 # Exposure Auto, 0 stands for Off, 1 stands for Once, 2 stands for Continues
 ExposureAuto: 2
 AutoExposureTimeLower: 65
-AutoExposureTimeUpper: 10000
+AutoExposureTimeUpper: 30000.0000
 # Gain Auto, 0 stands for Off, 1 stands for Once, 2 stands for Continues
 GainAuto: 2
 
@@ -22,6 +23,6 @@ GainAuto: 2
 GammaSelector: 1
 
 # Frame Rate (if trigger mode is on, frame rate is enable)
-FrameRate: 10.0
+FrameRate: 30.0
 
 

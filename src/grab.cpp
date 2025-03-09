@@ -75,13 +75,16 @@ int main(int argc, char **argv) {
   image_transport::ImageTransport it(nh);
   int nRet = MV_OK;
   void *handle = NULL;
-  ros::Rate loop_rate(10);
+
   cv::FileStorage Params(params_file, cv::FileStorage::READ);
   if (!Params.isOpened()) {
     string msg = "Failed to open settings file at:" + params_file;
     ROS_ERROR_STREAM(msg.c_str());
     exit(-1);
   }
+  int frame_rate = Params["FrameRate"];
+
+  ros::Rate loop_rate(frame_rate);
   std::string expect_serial_number = Params["SerialNumber"];
   std::string pub_topic = Params["TopicName"];
 
@@ -165,7 +168,7 @@ int main(int argc, char **argv) {
       ROS_ERROR_STREAM("Start Grabbing fail.\n");
       break;
     }
-
+    sleep(1);
     MV_FRAME_OUT_INFO_EX stImageInfo = {0};
     unsigned char *pData =
         (unsigned char *)malloc(sizeof(unsigned char) * (g_nPayloadSize));
@@ -173,7 +176,7 @@ int main(int argc, char **argv) {
     nRet =
         MV_CC_GetImageForBGR(handle, pData, g_nPayloadSize, &stImageInfo, 100);
     if (MV_OK != nRet) {
-      ROS_ERROR_STREAM("No data");
+      ROS_ERROR("No data,ret: %x",nRet);
       std::free(pData);
       pData = NULL;
       break;
